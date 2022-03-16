@@ -1,0 +1,82 @@
+import 'package:flutter/material.dart';
+import 'package:sa3dni_app/Home/questions.dart';
+import 'package:sa3dni_app/models/category.dart';
+import 'package:sa3dni_app/services/databaseServiceCategory.dart';
+import 'package:sa3dni_app/shared/constData.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../organization/registerOrga.dart';
+import '../services/authenticateService.dart';
+
+class SelectCategory extends StatefulWidget {
+  bool isPatient;
+   SelectCategory({Key? key, required this.isPatient}) : super(key: key);
+
+  @override
+  _SelectCategoryState createState() => _SelectCategoryState();
+}
+
+class _SelectCategoryState extends State<SelectCategory> {
+
+  final AuthenticateService _authenticateService = AuthenticateService();
+  final DatabaseServiceCategory _databaseService = DatabaseServiceCategory();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: ConstData().basicColor,
+        title: const Text('Select Category', style: TextStyle(color: Colors.white),),
+        actions: [
+          FlatButton(
+              onPressed: () => _authenticateService.singOut(),
+              child: const Text('Sign Out',style: TextStyle(color: Colors.white),))
+        ],
+      ),
+      backgroundColor: ConstData().secColor,
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 0.0),
+        child: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance.collection('category').snapshots(),
+          builder: (context,snapshot){
+            if(snapshot.hasData){
+              return GridView.builder(
+                itemCount: snapshot.data?.docs.length,
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 200,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20),
+                  itemBuilder: (context,index){
+                    DocumentSnapshot userData = snapshot.data!.docs[index];
+                    return
+                        GestureDetector(
+                          child: Column(
+                            children: [
+                             CircleAvatar(
+                               backgroundImage: NetworkImage(userData['image']),
+                             backgroundColor: ConstData().secColor,
+                             radius: 60.0),
+                              SizedBox(height: 4.0),
+                              Text(userData['name'])
+                      ]
+                    ),
+                          onTap: (){
+                            Category category = Category(name: userData['name']);
+                            if(widget.isPatient) {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder:(context) => QuestionTemp()));
+                            } else {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterOrganization(category: category,)));
+                            }
+
+                          },
+                        );
+                  });
+            }
+            else {
+              return LinearProgressIndicator();
+
+            }}
+        ),
+      ) ,
+    );
+  }
+}

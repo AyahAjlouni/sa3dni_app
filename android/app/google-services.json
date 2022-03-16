@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "61221364698",
+    "project_id": "sa3dni-b9d90",
+    "storage_bucket": "sa3dni-b9d90.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61221364698:android:4ed3e95918b0003db796e3",
+        "android_client_info": {
+          "package_name": "com.example.sa3dni_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "61221364698-on5vrmqr3r127jn1hjoc7p8ut1gvsf22.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcLXhPAR2z9prsLjH_GLRnDdFJwLd3W9s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "61221364698-on5vrmqr3r127jn1hjoc7p8ut1gvsf22.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
