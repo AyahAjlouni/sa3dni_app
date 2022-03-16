@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sa3dni_app/models/person.dart';
 
 
-class DatabaseServicePerosn{
+class DatabaseServicePerson{
 
   final collectionPerson = FirebaseFirestore.instance.collection('persons');
 
