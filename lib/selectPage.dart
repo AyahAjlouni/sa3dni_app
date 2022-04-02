@@ -11,7 +11,6 @@ class SelectPage extends StatelessWidget {
    SelectPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final person  = Provider?.of<Person?>(context);
          return Scaffold(
           backgroundColor: ConstData().secColor,
           body: Center(

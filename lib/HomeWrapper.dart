@@ -20,13 +20,6 @@ class _HomeWrapperState extends State<HomeWrapper> {
 
 String role = "";
 
-  Future<String> getRole() async {
-
-print(currentUser!.uid);
-
-    return "";
-  }
-
   @override
   void initState() {
      super.initState();
@@ -59,7 +52,7 @@ print(currentUser!.uid);
     else if(role.contains("organization"))
     {  print("organization");
     return OrgaHome();}
-   return Center(
+    return Center(
      child: SpinKitRotatingCircle(
        color: ConstData().basicColor,
        size: 50.0,

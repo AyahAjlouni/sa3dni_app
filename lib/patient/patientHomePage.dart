@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sa3dni_app/services/authenticateService.dart';
 import 'package:sa3dni_app/shared/constData.dart';
+
+import '../wrapper.dart';
 class PatientHome extends StatefulWidget {
   const PatientHome({Key? key}) : super(key: key);
 
@@ -15,11 +17,15 @@ class _PatientHomeState extends State<PatientHome> {
     return Scaffold(
       backgroundColor: ConstData().secColor,
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('Patient Home'),
         backgroundColor: ConstData().basicColor,
         actions: [
           FlatButton(
-              onPressed:() => _authenticateService.singOut(),
+              onPressed:() {_authenticateService.singOut();
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) =>  Wrapper(),
+              ));
+                        },
               child: const Text('sign out',
               style: TextStyle(color: Colors.white),)
 

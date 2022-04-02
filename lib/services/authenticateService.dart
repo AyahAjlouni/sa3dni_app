@@ -66,9 +66,10 @@ class AuthenticateService{
  Future signInAnon() async{
    try{
      UserCredential result = await _firebaseAuth.signInAnonymously();
-    User? user = result.user;
-
+      User? user = result.user;
+     DatabaseServicePerson().addUser(user!, "patient");
     return getUserFromFirebase(user);
+
    }catch(e){
      return null;
    }
@@ -77,7 +78,8 @@ class AuthenticateService{
   /// sign out
  Future singOut() async{
      try{
-      return await _firebaseAuth.signOut();
+      final result = await _firebaseAuth.signOut();
+
      }catch(e){
        return null;
      }

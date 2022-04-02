@@ -4,10 +4,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class DatabaseServicePerson{
 
-  final FirebaseFirestore db = FirebaseFirestore.instance;
+  final db = FirebaseFirestore.instance.collection("persons");
 
-  Future saveUser(User user) async{
-
+  Future addUser(User user,String role) async{
+     db.add({
+       "id" : user.uid,
+       "role": role
+     });
   }
 
 
