@@ -1,31 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:sa3dni_app/Home/selectCategory.dart';
 import 'package:provider/provider.dart';
 import 'package:sa3dni_app/models/person.dart';
-import 'package:sa3dni_app/services/authenticateService.dart';
 import 'package:sa3dni_app/shared/constData.dart';
+import 'package:sa3dni_app/wrapper.dart';
 
-import '../wrapper2.dart';
+import 'Home/selectCategory.dart';
+
 
 class SelectPage extends StatelessWidget {
    SelectPage({Key? key}) : super(key: key);
-  final AuthenticateService _authenticateService = AuthenticateService();
   @override
   Widget build(BuildContext context) {
     final person  = Provider?.of<Person?>(context);
-    if(person!.type.isEmpty){
-      return Scaffold(
-          appBar: AppBar(
-            backgroundColor: ConstData().basicColor,
-            actions: [
-              FlatButton(
-                  onPressed: () {
-                    _authenticateService.singOut();
-                  },
-                  child: Text('Sing Out',
-                    style: TextStyle(color: Colors.white),))
-            ],
-          ),
+         return Scaffold(
           backgroundColor: ConstData().secColor,
           body: Center(
             child: Row(
@@ -43,7 +30,8 @@ class SelectPage extends StatelessWidget {
                       ]
                   ),
                   onTap: (){
-                    person?.setType('patient');
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SelectCategory(isPatient: true)));
+
                   },
                 ),
                 const SizedBox(width: 60.0,),
@@ -58,21 +46,17 @@ class SelectPage extends StatelessWidget {
                       ]
                   ),
                   onTap: (){
-                    person?.setType('orga');
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SelectCategory(isPatient: false,)));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SelectCategory(isPatient: false)));
                   },
                 ),
 
               ],
             ),
-          ));
-    }else {
-      return StreamProvider<String?>.value(
-      initialData: null,
-      value: person?.Type,
-      catchError: (context,error) => null,
-      child:  Wrapper2()
-    );
+          )
+
+          );
+
+
     }
   }
-}
+

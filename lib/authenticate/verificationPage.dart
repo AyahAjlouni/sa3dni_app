@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:sa3dni_app/Home/selectPage.dart';
+import 'package:sa3dni_app/selectPage.dart';
 import 'package:sa3dni_app/authenticate/login.dart';
 import 'package:sa3dni_app/services/authenticateService.dart';
 import 'package:provider/provider.dart';
 import 'package:sa3dni_app/models/person.dart';
-import 'package:sa3dni_app/Home/homePage.dart';
+import 'package:sa3dni_app/patient/patientHomePage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:sa3dni_app/shared/constData.dart';

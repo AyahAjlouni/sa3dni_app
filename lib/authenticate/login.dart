@@ -4,6 +4,7 @@ import 'package:sa3dni_app/authenticate/resetPassword.dart';
 import 'package:sa3dni_app/services/authenticateService.dart';
 import 'package:sa3dni_app/shared/inputField.dart';
 import 'package:sa3dni_app/shared/constData.dart';
+import 'package:sa3dni_app/wrapper.dart';
 class SignIn extends StatefulWidget {
 
   const SignIn({Key? key}) : super(key: key);
@@ -89,11 +90,13 @@ class _SignInState extends State<SignIn> {
                             load = true;
                           });
                           dynamic result = await _authService.signInWithEmailAndPassword(email, password);
-                          if(result == null) {
+                          if(result != null) {
                             setState(() {
-
                               load = false;
                             });
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                              builder: (context) => const Wrapper(),
+                            ));
                           }
 
                         }

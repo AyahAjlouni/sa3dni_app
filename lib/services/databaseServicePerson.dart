@@ -1,18 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sa3dni_app/models/person.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DatabaseServicePerson{
 
-  final collectionPerson = FirebaseFirestore.instance.collection('persons');
+  final FirebaseFirestore db = FirebaseFirestore.instance;
 
-  Future addPerson(Person person ) async{
-    collectionPerson.add({
-     'id':person.id,
-     'email':person.email,
-     'password':person.password
-    });
+  Future saveUser(User user) async{
+
   }
+
 
 
 

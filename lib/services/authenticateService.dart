@@ -24,7 +24,6 @@ class AuthenticateService{
       Person? person = getUserFromFirebase(user);
       person?.setEmail(email);
       person?.setPassword(password);
-      DatabaseServicePerson().addPerson(person!);
       return person;
     }catch(e){
       return null;

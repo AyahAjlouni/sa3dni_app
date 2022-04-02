@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:sa3dni_app/services/authenticateService.dart';
 import 'package:sa3dni_app/shared/constData.dart';
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class PatientHome extends StatefulWidget {
+  const PatientHome({Key? key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _PatientHomeState createState() => _PatientHomeState();
 }
 
-class _HomeState extends State<Home> {
+class _PatientHomeState extends State<PatientHome> {
   final AuthenticateService _authenticateService = AuthenticateService();
   @override
   Widget build(BuildContext context) {

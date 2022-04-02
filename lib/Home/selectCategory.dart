@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sa3dni_app/Home/questions.dart';
+import 'package:sa3dni_app/authenticate/login.dart';
 import 'package:sa3dni_app/models/category.dart';
 import 'package:sa3dni_app/services/databaseServiceCategory.dart';
 import 'package:sa3dni_app/shared/constData.dart';
@@ -17,19 +17,14 @@ class SelectCategory extends StatefulWidget {
 
 class _SelectCategoryState extends State<SelectCategory> {
 
-  final AuthenticateService _authenticateService = AuthenticateService();
-  final DatabaseServiceCategory _databaseService = DatabaseServiceCategory();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ConstData().basicColor,
         title: const Text('Select Category', style: TextStyle(color: Colors.white),),
-        actions: [
-          FlatButton(
-              onPressed: () => _authenticateService.singOut(),
-              child: const Text('Sign Out',style: TextStyle(color: Colors.white),))
-        ],
+
       ),
       backgroundColor: ConstData().secColor,
       body: Padding(
@@ -61,8 +56,8 @@ class _SelectCategoryState extends State<SelectCategory> {
                           onTap: (){
                             Category category = Category(name: userData['name']);
                             if(widget.isPatient) {
-                              Navigator.push(context, MaterialPageRoute(
-                                builder:(context) => QuestionTemp()));
+                              Navigator.pushReplacement(context, MaterialPageRoute(
+                                builder:(context) => SignIn()));
                             } else {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterOrganization(category: category,)));
                             }
