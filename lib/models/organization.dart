@@ -8,7 +8,11 @@ class Organization extends Person{
   Organization({required String name,
     required String phoneNumber,
     required String address,
-    required Category category}) : super.withPar(name: name, phoneNumber: phoneNumber, address: address, category: category);
+    required Category category,
+     required String password,
+      required String id}) :
+        super.withPar(name: name, phoneNumber: phoneNumber, address: address,
+          category: category,password: password,id: id);
 
      void setRate(int rate){
        listOfRate.add(rate);

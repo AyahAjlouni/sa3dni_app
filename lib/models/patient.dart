@@ -7,6 +7,6 @@ class Patient extends Person{
     required String phoneNumber,
     required String email,
     required String address,
-    required Category category}) : super.withPar(name: name, phoneNumber: phoneNumber, address: address, category: category);
+    required Category category}) : super(id: name);
 
 }

@@ -19,7 +19,9 @@ class Person{
    Person.withPar({required this.name,
      required this.phoneNumber ,
      required this.address,
-     required this.category});
+     required this.category,
+   required this.password,
+   required this.id});
 
 
 

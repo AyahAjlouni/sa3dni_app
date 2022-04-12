@@ -52,7 +52,7 @@ String role = "";
     else if(role.contains("organization"))
     {  print("organization");
     return OrgaHome();}
-    return Center(
+    else return Center(
      child: SpinKitRotatingCircle(
        color: ConstData().basicColor,
        size: 50.0,

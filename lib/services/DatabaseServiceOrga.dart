@@ -11,8 +11,9 @@ class DatabaseServiceOrga{
       'name': organization.name,
       'address':organization.address,
       'category':organization.category.name,
-      'phoneNumber':organization.email,
-      'rate':organization.getRate().toString()
+      'phoneNumber':organization.phoneNumber,
+      'rate':organization.getRate().toString(),
+      'password':organization.password
     });
   }
 

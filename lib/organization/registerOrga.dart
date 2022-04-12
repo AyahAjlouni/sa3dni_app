@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sa3dni_app/HomeWrapper.dart';
 import 'package:sa3dni_app/models/category.dart';
 import 'package:sa3dni_app/models/organization.dart';
-import 'package:sa3dni_app/organization/orgaHome.dart';
+import 'package:sa3dni_app/services/authenticateService.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sa3dni_app/shared/constData.dart';
+import '../models/person.dart';
+import '../services/databaseServicePerson.dart';
 import '../shared/inputField.dart';
 import 'package:sa3dni_app/services/DatabaseServiceOrga.dart';
 
@@ -19,8 +23,16 @@ class _RegisterOrganizationState extends State<RegisterOrganization> {
 
 
   final _keyForm = GlobalKey<FormState>();
-  String phoneNumber = '' , email = '' , name = '' ,  address = '';
-  DatabaseServiceOrga _databaseServiceOrga =  DatabaseServiceOrga();
+  String email = '';
+  String password = '';
+  String phoneNumber = '', name = '' ,  address = '';
+  final DatabaseServiceOrga _databaseServiceOrga =  DatabaseServiceOrga();
+
+  bool validateStructure(String value){
+    String  pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[.!@#\$&*~]).{8,}$';
+    RegExp regExp =  RegExp(pattern);
+    return regExp.hasMatch(value);
+  }
   @override
   void initState() {
     super.initState();
@@ -75,6 +87,22 @@ class _RegisterOrganizationState extends State<RegisterOrganization> {
               ),
               const SizedBox(height: 10.0),
               TextFormField(
+                decoration: textInputField.copyWith(hintText: 'Password'),
+                validator: (value) => validateStructure(value!) ? null :
+                'password should be contains\n1 upper case \n'
+                    '1 lowercase \n'
+                    '1 Numeric Number \n'
+                    '1 Special Character ',
+                keyboardType: TextInputType.text,
+                obscureText: true,
+                onChanged: (value) => {
+                  setState((){
+                    password = value;
+                  })
+                },
+              ),
+              const SizedBox(height: 10.0),
+              TextFormField(
                 decoration: textInputField.copyWith(hintText: 'Address'),
                 validator: (value) => value.toString().isNotEmpty ? null : 'Address can not be empty',
                 keyboardType: TextInputType.streetAddress,
@@ -84,18 +112,26 @@ class _RegisterOrganizationState extends State<RegisterOrganization> {
                   })
                 },
               ),
-              SizedBox(height: 10.0,),
+              const SizedBox(height: 10.0,),
               RaisedButton(
                   onPressed: () async{
                     if(_keyForm.currentState!.validate()){
-                      Organization organization = Organization(name: name, phoneNumber: phoneNumber,
-                       address: address, category: widget.category);
-                     _databaseServiceOrga.addOrganization(organization);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => OrgaHome()));
+                      Person? person = await  AuthenticateService().registerWithEmailAndPassword(email, password);
+                         if(person != null){
+                           User? user = FirebaseAuth.instance.currentUser;
+
+                           Organization organization = Organization(name: name, phoneNumber: phoneNumber,
+                               address: address, category: widget.category,password: password,id:person.id);
+                           await  DatabaseServicePerson().addUser(user!, "organization");
+
+                           await  _databaseServiceOrga.addOrganization(organization);
+                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeWrapper()));
+
+                         }
 
                     }
                   },
-              child: const Text('Submit'),
+              child: const Text('Register'),
               )
             ],
           ),

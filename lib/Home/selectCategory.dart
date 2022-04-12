@@ -60,7 +60,7 @@ class _SelectCategoryState extends State<SelectCategory> {
                               Navigator.pushReplacement(context, MaterialPageRoute(
                                 builder:(context) => SelectAnonOrNotSignIn()));
                             } else {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterOrganization(category: category,)));
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegisterOrganization(category: category,)));
                             }
 
                           },

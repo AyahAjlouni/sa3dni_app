@@ -14,7 +14,6 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final AuthenticateService _authService = AuthenticateService();
-  final List<String> _gender = ['Female','Male'];
   String email = '';
   String password = '';
   bool load = false;
