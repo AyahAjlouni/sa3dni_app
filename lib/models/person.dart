@@ -12,6 +12,7 @@ class Person{
    late String id;
    String type = '';
    StreamController<String> controller = StreamController<String>();
+   Person.withNoParameter();
    Person({required this.id});
 
    Person.withSingInInfo({required this.email ,required this.password });
@@ -20,7 +21,7 @@ class Person{
      required this.phoneNumber ,
      required this.address,
      required this.category,
-   required this.password,
+   required this.email,
    required this.id});
 
 

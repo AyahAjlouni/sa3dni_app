@@ -1,0 +1,144 @@
+import 'package:flutter/material.dart';
+import 'package:sa3dni_app/organization/registerOrga.dart';
+
+import '../authenticate/resetPassword.dart';
+import '../models/category.dart';
+import '../services/authenticateService.dart';
+import '../shared/constData.dart';
+import '../shared/inputField.dart';
+import '../wrapper.dart';
+
+class OrganizationLogin extends StatefulWidget {
+ final Category category;
+   const OrganizationLogin({Key? key,required this.category}) : super(key: key);
+
+  @override
+  State<OrganizationLogin> createState() => _OrganizationLoginState();
+}
+
+class _OrganizationLoginState extends State<OrganizationLogin> {
+  final AuthenticateService _authService = AuthenticateService();
+
+  final _keyVal = GlobalKey<FormState>();
+
+  String email = '';
+
+  String password = '';
+
+  String error = '';
+
+  bool load = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: ConstData().secColor,
+        appBar: AppBar(
+          title: Text('Sign in'),
+          centerTitle: true,
+          backgroundColor: ConstData().basicColor,
+        ),
+        body: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30.0,70.0,30.0,0.0),
+              child: Form(
+                key: _keyVal,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: textInputField.copyWith(hintText: 'Email'),
+                      validator: (value) => value.toString().isNotEmpty ? null : 'Enter your valid Email ',
+                      keyboardType: TextInputType.emailAddress,
+                      onChanged: (value) => {
+                        setState((){
+                          email = value;
+                        })
+                      },
+                    ),
+                    SizedBox(height: 15.0,),
+                    TextFormField(
+                      decoration: textInputField.copyWith(hintText: 'Password'),
+                      keyboardType: TextInputType.text,
+                      validator: (value) => value.toString().length > 8 ? null : 'password should be more than 6 char ',
+                      obscureText: true,
+                      onChanged: (value) => {
+                        setState((){
+                          password = value;
+                        })
+                      },
+                    ),
+                    const SizedBox(height: 15.0,),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          child: Text('Forgot Password?',
+                            textAlign: TextAlign.end,
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              decoration: TextDecoration.underline,
+                              fontSize: 15,
+                            ),
+                          ),
+                          onTap: (){
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const ResetPasswordPage(),
+                            ));
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 15.0,),
+                    RaisedButton(
+                      onPressed: () async {
+                        if (_keyVal.currentState!.validate()) {
+
+                          dynamic result = await _authService.signInWithEmailAndPassword(email, password);
+                          if(result != null) {
+
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                              builder: (context) => const Wrapper(),
+                            ));
+                          }
+
+                        }
+                      },
+                      child: const Text('Sing in',
+                          style: TextStyle(color: Colors.white)),
+                      color: ConstData().basicColor,
+                    ),
+
+                    const SizedBox(height: 10.0,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text('No account ? ',
+                          style: TextStyle(color: Colors.black),),
+                        GestureDetector(
+                          child: Text('Sign Up',
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              decoration: TextDecoration.underline,
+                              fontSize: 15,
+                            ),
+                          ),
+                          onTap: (){
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>  RegisterOrganization(category: widget.category),
+                            ));
+                          },
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+
+              ),
+            ),
+          ],
+        )
+    );
+  }
+}

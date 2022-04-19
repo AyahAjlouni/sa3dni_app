@@ -5,14 +5,15 @@ class Organization extends Person{
 
   List<int> listOfRate =  [];
 
+  Organization.withNoParameter():super.withNoParameter();
   Organization({required String name,
     required String phoneNumber,
     required String address,
     required Category category,
-     required String password,
+     required String email,
       required String id}) :
         super.withPar(name: name, phoneNumber: phoneNumber, address: address,
-          category: category,password: password,id: id);
+          category: category,email: email,id: id);
 
      void setRate(int rate){
        listOfRate.add(rate);

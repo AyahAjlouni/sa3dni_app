@@ -34,7 +34,7 @@ class _PatientHomeState extends State<PatientHome> with TickerProviderStateMixin
           FlatButton(
               onPressed:() {_authenticateService.singOut();
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) =>  Wrapper(),
+                builder: (context) =>  const Wrapper(),
               ));
                         },
               child: const Text('sign out',
@@ -45,7 +45,7 @@ class _PatientHomeState extends State<PatientHome> with TickerProviderStateMixin
       ),
       body: TabBarView(
           controller: _tabController,
-          children: [
+          children: const [
           OrganizationList(),
           PatientProfile(),
           ChatPage(),

@@ -9,6 +9,8 @@ import '../models/person.dart';
 import '../services/databaseServicePerson.dart';
 import '../shared/inputField.dart';
 import 'package:sa3dni_app/services/DatabaseServiceOrga.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sa3dni_app/services/uploadFile.dart';
 
 class RegisterOrganization extends StatefulWidget {
   Category category;
@@ -26,7 +28,9 @@ class _RegisterOrganizationState extends State<RegisterOrganization> {
   String email = '';
   String password = '';
   String phoneNumber = '', name = '' ,  address = '';
+  String image = 'https://icons.iconarchive.com/icons/icons8/ios7/512/Users-User-Male-icon.png';
   final DatabaseServiceOrga _databaseServiceOrga =  DatabaseServiceOrga();
+  UploadFile uploadFile = UploadFile();
 
   bool validateStructure(String value){
     String  pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[.!@#\$&*~]).{8,}$';
@@ -77,7 +81,7 @@ class _RegisterOrganizationState extends State<RegisterOrganization> {
               const SizedBox(height: 10.0),
               TextFormField(
                 decoration: textInputField.copyWith(hintText: 'Phone Number'),
-                validator: (value) => value.toString().length > 10 ? null : 'Phone Number is not correct',
+                validator: (value) => value.toString().length > 9 ? null : 'Phone Number is not correct',
                 keyboardType: TextInputType.phone,
                 onChanged: (value) => {
                   setState((){
@@ -113,6 +117,31 @@ class _RegisterOrganizationState extends State<RegisterOrganization> {
                 },
               ),
               const SizedBox(height: 10.0,),
+              GestureDetector(
+                child: CircleAvatar(
+                  backgroundColor: Colors.grey,
+                  backgroundImage: NetworkImage(image),
+                  radius: 35,
+                  child: Icon(Icons.add_a_photo),
+                ),
+                onTap: () async{
+                  await uploadFile.selectFile();
+                  Fluttertoast.showToast(
+                      msg: "please wait to upload image ...",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      backgroundColor: Colors.grey,
+                      textColor: Colors.white,
+                      fontSize: 16.0
+                  );
+                  await uploadFile.uploadFile();
+                  setState(()  {
+                    image = uploadFile.getUriFile();
+
+                  });
+                },
+              ),
+              SizedBox(height: 20,),
               RaisedButton(
                   onPressed: () async{
                     if(_keyForm.currentState!.validate()){
@@ -121,11 +150,11 @@ class _RegisterOrganizationState extends State<RegisterOrganization> {
                            User? user = FirebaseAuth.instance.currentUser;
 
                            Organization organization = Organization(name: name, phoneNumber: phoneNumber,
-                               address: address, category: widget.category,password: password,id:person.id);
+                               address: address, category: widget.category,email: email,id:person.id);
                            await  DatabaseServicePerson().addUser(user!, "organization");
 
-                           await  _databaseServiceOrga.addOrganization(organization);
-                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeWrapper()));
+                           await  _databaseServiceOrga.addOrganization(organization,user.uid,image);
+                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeWrapper()));
 
                          }
 

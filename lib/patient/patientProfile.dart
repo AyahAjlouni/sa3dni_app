@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:sa3dni_app/shared/constData.dart';
 
-class PatientProfile extends StatelessWidget {
+class PatientProfile extends StatefulWidget {
   const PatientProfile({Key? key}) : super(key: key);
 
+
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<PatientProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text("Profile"),
-      ),
+         body: Column(
+           children: [
+             CircleAvatar()
+           ],
+         )
     );
   }
 }
+
