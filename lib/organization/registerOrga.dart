@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sa3dni_app/HomeWrapper.dart';
+import 'package:sa3dni_app/homeWrapper.dart';
 import 'package:sa3dni_app/models/category.dart';
 import 'package:sa3dni_app/models/organization.dart';
 import 'package:sa3dni_app/services/authenticateService.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sa3dni_app/selectPage.dart';
 import 'models/person.dart';
-import 'package:sa3dni_app/HomeWrapper.dart';
+import 'package:sa3dni_app/homeWrapper.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({Key? key}) : super(key: key);

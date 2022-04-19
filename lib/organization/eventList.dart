@@ -48,7 +48,7 @@ class _EventListState extends State<EventList> {
     if (events.isNotEmpty) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Events'),
+          title: const Text('Events'),
           backgroundColor: ConstData().basicColor,
         ),
         body: ListView.builder(
@@ -60,7 +60,7 @@ class _EventListState extends State<EventList> {
                   decoration: BoxDecoration(
                       shape: BoxShape.rectangle,
                       color: Colors.grey[200],
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      borderRadius: const BorderRadius.all(Radius.circular(15)),
                       border:
                           Border.all(color: ConstData().basicColor, width: 1)),
                   child: Padding(
@@ -69,11 +69,11 @@ class _EventListState extends State<EventList> {
                       children: [
                         Text(
                           events[index].title,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
                           textAlign: TextAlign.center,
                         ),
-                        Divider(
+                        const Divider(
                           height: 25,
                           indent: 20,
                           endIndent: 20,
@@ -97,7 +97,7 @@ class _EventListState extends State<EventList> {
                                     fontWeight: FontWeight.bold, fontSize: 15),
                               )
                             ]),
-                            SizedBox(height: 15,),
+                            const SizedBox(height: 15,),
                             Row(children: [
                               Icon(
                                 Icons.access_time_outlined,
@@ -114,7 +114,7 @@ class _EventListState extends State<EventList> {
                                     fontWeight: FontWeight.bold, fontSize: 15),
                               )
                             ]),
-                            SizedBox(height: 15,),
+                            const SizedBox(height: 15,),
                             Row(children: [
                               Icon(
                                 Icons.location_on,
