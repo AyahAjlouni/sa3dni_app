@@ -4,7 +4,6 @@ import 'package:sa3dni_app/authenticate/login.dart';
 import 'package:sa3dni_app/services/authenticateService.dart';
 import 'package:provider/provider.dart';
 import 'package:sa3dni_app/models/person.dart';
-import 'package:sa3dni_app/patient/patientHomePage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:sa3dni_app/shared/constData.dart';
@@ -59,9 +58,9 @@ class _VerifyByEmailPageState extends State<VerifyByEmailPage> {
   @override
   Widget build(BuildContext context) {
     final person = Provider?.of<Person?>(context);
-    if(person == null)
-      return SignIn();
-    else if(isVerifyEmail) {
+    if(person == null) {
+      return const SignIn();
+    } else if(isVerifyEmail) {
       return SelectPage();
     } else {
       return Scaffold(

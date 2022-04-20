@@ -1,3 +1,4 @@
+
 import 'package:sa3dni_app/services/authenticateService.dart';
 import 'package:flutter/material.dart';
 import 'package:sa3dni_app/shared/constData.dart';
@@ -15,7 +16,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFD9CDCA),
+      backgroundColor: const Color(0xFFD9CDCA),
       appBar: AppBar(
         title: const Text('Reset Password'),
         backgroundColor: ConstData().basicColor,

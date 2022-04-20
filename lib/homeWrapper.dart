@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -28,14 +29,14 @@ String role = "";
          .collection('persons')
          .get()
          .then((QuerySnapshot querySnapshot) {
-       querySnapshot.docs.forEach((doc) {
+       for (var doc in querySnapshot.docs) {
          if(doc["id"].toString().contains(currentUser!.uid)){
            print(doc["role"]);
            setState(() {
              role =  doc['role'];
            });
          }
-       });
+       }
      });
 
      print("Role"+role);

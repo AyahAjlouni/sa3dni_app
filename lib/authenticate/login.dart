@@ -26,7 +26,7 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
         backgroundColor: ConstData().secColor,
         appBar: AppBar(
-          title: Text('Sign in'),
+          title: const Text('Sign in'),
           centerTitle: true,
           backgroundColor: ConstData().basicColor,
         ),
@@ -48,7 +48,7 @@ class _SignInState extends State<SignIn> {
                         })
                       },
                     ),
-                    SizedBox(height: 15.0,),
+                    const SizedBox(height: 15.0,),
                     TextFormField(
                       decoration: textInputField.copyWith(hintText: 'Password'),
                       keyboardType: TextInputType.text,
@@ -82,7 +82,7 @@ class _SignInState extends State<SignIn> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 15.0,),
+                    const SizedBox(height: 15.0,),
                     RaisedButton(
                       onPressed: () async {
                         if (_keyVal.currentState!.validate()) {

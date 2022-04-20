@@ -1,14 +1,12 @@
+
 import 'package:flutter/material.dart';
-import 'package:sa3dni_app/authenticate/login.dart';
 import 'package:sa3dni_app/models/category.dart';
 import 'package:sa3dni_app/organization/organizationLogin.dart';
 import 'package:sa3dni_app/patient/SelectAnonOrNotLogin.dart';
-import 'package:sa3dni_app/services/databaseServiceCategory.dart';
 import 'package:sa3dni_app/shared/constData.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../organization/registerOrga.dart';
-import '../services/authenticateService.dart';
 
+// ignore: must_be_immutable
 class SelectCategory extends StatefulWidget {
   bool isPatient;
    SelectCategory({Key? key, required this.isPatient}) : super(key: key);
@@ -51,7 +49,7 @@ class _SelectCategoryState extends State<SelectCategory> {
                                backgroundImage: NetworkImage(userData['image']),
                              backgroundColor: ConstData().secColor,
                              radius: 60.0),
-                              SizedBox(height: 4.0),
+                              const SizedBox(height: 4.0),
                               Text(userData['name'])
                       ]
                     ),
@@ -69,7 +67,7 @@ class _SelectCategoryState extends State<SelectCategory> {
                   });
             }
             else {
-              return LinearProgressIndicator();
+              return const LinearProgressIndicator();
 
             }}
         ),
