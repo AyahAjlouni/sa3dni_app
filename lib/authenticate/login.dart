@@ -86,14 +86,10 @@ class _SignInState extends State<SignIn> {
                     RaisedButton(
                       onPressed: () async {
                         if (_keyVal.currentState!.validate()) {
-                          setState(() {
-                            load = true;
-                          });
+
                           dynamic result = await _authService.signInWithEmailAndPassword(email, password);
                           if(result != null) {
-                            setState(() {
-                              load = false;
-                            });
+
                             Navigator.of(context).pushReplacement(MaterialPageRoute(
                               builder: (context) => const Wrapper(),
                             ));

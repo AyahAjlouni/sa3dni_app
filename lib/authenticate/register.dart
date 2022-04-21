@@ -4,7 +4,9 @@ import 'package:sa3dni_app/services/authenticateService.dart';
 import 'package:sa3dni_app/shared/constData.dart';
 import 'package:sa3dni_app/shared/inputField.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
+import '../services/databaseServicePerson.dart';
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
 
@@ -75,6 +77,8 @@ class _RegisterState extends State<Register> {
                           if(result != null) {
                             if(!_authService.isVerificationEmail())
                             {
+                              User? user = FirebaseAuth.instance.currentUser;
+                              await  DatabaseServicePerson().addUser(user!, "patient");
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => const VerifyByEmailPage()));
                               Fluttertoast.showToast(
