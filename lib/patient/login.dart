@@ -1,4 +1,5 @@
-import 'package:sa3dni_app/authenticate/register.dart';
+import 'package:sa3dni_app/models/category.dart';
+import 'package:sa3dni_app/patient/register.dart';
 import 'package:flutter/material.dart';
 import 'package:sa3dni_app/authenticate/resetPassword.dart';
 import 'package:sa3dni_app/services/authenticateService.dart';
@@ -6,8 +7,8 @@ import 'package:sa3dni_app/shared/inputField.dart';
 import 'package:sa3dni_app/shared/constData.dart';
 import 'package:sa3dni_app/wrapper.dart';
 class SignIn extends StatefulWidget {
-
-  const SignIn({Key? key}) : super(key: key);
+   Category category;
+   SignIn({Key? key , required this.category}) : super(key: key);
 
   @override
   _SignInState createState() => _SignInState();
@@ -118,7 +119,7 @@ class _SignInState extends State<SignIn> {
                           ),
                           onTap: (){
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const Register(),
+                              builder: (context) =>  Register(category: widget.category),
                             ));
                           },
                         ),

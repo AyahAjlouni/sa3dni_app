@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:sa3dni_app/authenticate/verificationPage.dart';
+import 'package:sa3dni_app/models/category.dart';
+import 'package:sa3dni_app/models/patient.dart';
+import 'package:sa3dni_app/models/person.dart';
 import 'package:sa3dni_app/services/authenticateService.dart';
+import 'package:sa3dni_app/services/databaseServicesPatient.dart';
 import 'package:sa3dni_app/shared/constData.dart';
 import 'package:sa3dni_app/shared/inputField.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sa3dni_app/wrapper.dart';
 
 import '../services/databaseServicePerson.dart';
 class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+  Category category;
+   Register({Key? key,required this.category}) : super(key: key);
 
   @override
   _RegisterState createState() => _RegisterState();
@@ -18,6 +24,7 @@ class _RegisterState extends State<Register> {
   final AuthenticateService _authService = AuthenticateService();
   String email = '';
   String password = '';
+  String name = '';
   bool load = false;
 
   final _keyVal = GlobalKey<FormState>();
@@ -43,6 +50,17 @@ class _RegisterState extends State<Register> {
                 key: _keyVal,
                 child: Column(
                   children: [
+                    TextFormField(
+                      decoration: textInputField.copyWith(hintText: 'FullName'),
+                      validator: (value) => value.toString().isNotEmpty ? null : 'Name Field can not be Empty ',
+                      keyboardType: TextInputType.name,
+                      onChanged: (value) => {
+                        setState((){
+                          name = value;
+                        })
+                      },
+                    ),
+                    const SizedBox(height: 15.0,),
                     TextFormField(
                       decoration: textInputField.copyWith(hintText: 'Email'),
                       validator: (value) => value.toString().isNotEmpty ? null : 'Email Field can not be Empty ',
@@ -78,18 +96,29 @@ class _RegisterState extends State<Register> {
                             if(!_authService.isVerificationEmail())
                             {
                               User? user = FirebaseAuth.instance.currentUser;
-                              await  DatabaseServicePerson().addUser(user!, "patient");
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const VerifyByEmailPage()));
-                              Fluttertoast.showToast(
-                                  msg: "check your email to verify email",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  backgroundColor: Colors.grey,
-                                  textColor: Colors.white,
-                                  fontSize: 16.0
-                              );
-                            }
+                         dynamic role =
+                         await  DatabaseServicePerson().addUser(user!, "patient");
+
+                         dynamic patient =
+                         await DatabaseServicePatient().
+                         addPatient(Patient(name: name,
+                             email: email,
+                             category: widget.category,
+                             id: user.uid));
+                              if(patient != null && role != null){
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const VerifyByEmailPage()));
+                                Fluttertoast.showToast(
+                                    msg: "check your email to verify email",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    backgroundColor: Colors.grey,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0
+                                );
+                              }
+                              }
+
 
                           }else{
                             Fluttertoast.showToast(

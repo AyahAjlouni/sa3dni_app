@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'package:sa3dni_app/selectPage.dart';
-import 'package:sa3dni_app/authenticate/login.dart';
+import 'package:sa3dni_app/patient/login.dart';
 import 'package:sa3dni_app/services/authenticateService.dart';
 import 'package:provider/provider.dart';
 import 'package:sa3dni_app/models/person.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:sa3dni_app/shared/constData.dart';
+
+import '../wrapper.dart';
 
 class VerifyByEmailPage extends StatefulWidget {
   const VerifyByEmailPage({Key? key}) : super(key: key);
@@ -57,11 +59,8 @@ class _VerifyByEmailPageState extends State<VerifyByEmailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final person = Provider?.of<Person?>(context);
-    if(person == null) {
-      return const SignIn();
-    } else if(isVerifyEmail) {
-      return SelectPage();
+    if(isVerifyEmail) {
+      return const Wrapper();
     } else {
       return Scaffold(
         appBar: AppBar(

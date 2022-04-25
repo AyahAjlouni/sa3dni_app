@@ -3,10 +3,9 @@ import 'package:sa3dni_app/models/person.dart';
 
 class Patient extends Person{
 
-  Patient.withPar({required String name,
-    required String phoneNumber,
+  Patient({required String name ,
     required String email,
-    required String address,
-    required Category category}) : super(id: name);
+    required Category category,
+  required String id}) : super.withPatientInfo(name: name, email: email, category: category, id: id);
 
 }

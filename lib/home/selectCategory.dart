@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sa3dni_app/models/category.dart';
 import 'package:sa3dni_app/organization/organizationLogin.dart';
 import 'package:sa3dni_app/patient/SelectAnonOrNotLogin.dart';
+import 'package:sa3dni_app/patient/login.dart';
 import 'package:sa3dni_app/shared/constData.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -57,7 +58,7 @@ class _SelectCategoryState extends State<SelectCategory> {
                             Category category = Category(name: userData['name']);
                             if(widget.isPatient) {
                               Navigator.pushReplacement(context, MaterialPageRoute(
-                                builder:(context) => SelectAnonOrNotSignIn()));
+                                builder:(context) => SignIn(category: category,)));
                             } else {
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OrganizationLogin(category: category,)));
                             }

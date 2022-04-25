@@ -60,19 +60,15 @@ class _PatientHomeState extends State<PatientHome> with TickerProviderStateMixin
            tabs: const [
              Tab(
                icon: Icon(Icons.home),
-               text: 'Home',
              ),
              Tab(
                icon: Icon(Icons.person),
-               text: 'My Profile',
              ),
              Tab(
                icon: Icon(Icons.chat_bubble),
-               text: 'Chat',
              ),
              Tab(
                icon: Icon(Icons.settings),
-               text: 'Setting',
              ),
            ]
 

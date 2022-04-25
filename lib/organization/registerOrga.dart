@@ -150,7 +150,7 @@ class _RegisterOrganizationState extends State<RegisterOrganization> {
                            User? user = FirebaseAuth.instance.currentUser;
 
                            Organization organization = Organization(name: name, phoneNumber: phoneNumber,
-                               address: address, category: widget.category,email: email,id:person.id);
+                               address: address, category: widget.category,email: email,id:person.id,image: image);
                            await  DatabaseServicePerson().addUser(user!, "organization");
 
                            await  _databaseServiceOrga.addOrganization(organization,user.uid,image);

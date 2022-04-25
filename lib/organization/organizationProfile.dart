@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sa3dni_app/models/event.dart';
 import 'package:sa3dni_app/models/organization.dart';
+import 'package:sa3dni_app/models/request.dart';
 import 'package:sa3dni_app/organization/eventList.dart';
+import 'package:sa3dni_app/organization/requestList.dart';
 import 'package:sa3dni_app/services/DatabaseServiceOrga.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,6 +28,8 @@ class _OrganizationProfileState extends State<OrganizationProfile> {
   String image = '';
   final currentUser = FirebaseAuth.instance.currentUser;
   int eventCount = 0;
+  int requestCount = 0;
+  List<Request> requests = <Request>[];
   @override
   void initState() {
     super.initState();
@@ -56,8 +60,23 @@ class _OrganizationProfileState extends State<OrganizationProfile> {
                 address: doc['address'],
                 category: Category(name: doc['category']),
                 email: doc['email'],
-                id: doc['id']);
+                id: doc['id'],
+            image: doc['image']);
             rate = double.parse(doc['rate']);
+          });
+        }
+      }
+    });
+
+    FirebaseFirestore.instance
+        .collection('requests')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        if (doc["organizationID"].toString().contains(currentUser!.uid)
+            && doc['status'].toString().contains('waiting')) {
+          setState(() {
+           requestCount++;
           });
         }
       }
@@ -70,7 +89,7 @@ class _OrganizationProfileState extends State<OrganizationProfile> {
       for (var doc in querySnapshot.docs) {
         if (doc["organizationID"].toString().contains(currentUser!.uid)) {
           setState(() {
-           eventCount++;
+            eventCount++;
           });
         }
       }
@@ -79,6 +98,7 @@ class _OrganizationProfileState extends State<OrganizationProfile> {
 
   @override
   Widget build(BuildContext context) {
+
     if (image.isNotEmpty && _organization != null) {
       return Scaffold(
         body: Padding(
@@ -199,6 +219,20 @@ class _OrganizationProfileState extends State<OrganizationProfile> {
                     },
                   ),
                 ],
+              ),
+              SizedBox(height: 20,),
+              GestureDetector(
+                child: Column(
+                  children: [
+                    const Text("Request",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),
+                    const SizedBox(height: 15,),
+                    Text(requestCount.toString(),style: const TextStyle(fontSize: 15),),
+                  ],
+                ),
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const RequestList()));
+
+                },
               ),
             ],
           ),

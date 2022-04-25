@@ -15,7 +15,7 @@ class Wrapper extends StatelessWidget {
         return SelectPage();
     }
     else {
-      return HomeWrapper();
+      return const HomeWrapper();
     }
   }
 }

@@ -40,7 +40,8 @@ class DatabaseServiceOrga{
              address: doc['address'],
              category: Category(name:doc['category'] ),
              email: doc['email'],
-             id: doc['id']);
+             id: doc['id'],
+         image: doc['image']);
           }
        }
      });

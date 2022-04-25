@@ -4,14 +4,15 @@ import 'package:sa3dni_app/models/person.dart';
 class Organization extends Person{
 
   List<int> listOfRate =  [];
-
+  late String image;
   Organization.withNoParameter():super.withNoParameter();
   Organization({required String name,
     required String phoneNumber,
     required String address,
     required Category category,
      required String email,
-      required String id}) :
+      required String id,
+     required this.image}) :
         super.withPar(name: name, phoneNumber: phoneNumber, address: address,
           category: category,email: email,id: id);
 

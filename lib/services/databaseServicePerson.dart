@@ -7,7 +7,7 @@ class DatabaseServicePerson{
   final db = FirebaseFirestore.instance.collection("persons");
 
   Future addUser(User user,String role) async{
-     db.add({
+     return await db.add({
        "id" : user.uid,
        "role": role
      });

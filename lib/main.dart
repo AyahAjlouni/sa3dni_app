@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sa3dni_app/authenticate/login.dart';
+import 'package:sa3dni_app/patient/login.dart';
 import 'package:sa3dni_app/logo.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';

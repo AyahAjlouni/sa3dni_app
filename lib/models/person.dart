@@ -10,12 +10,19 @@ class Person{
    late String email;
    late String password;
    late String id;
+
    String type = '';
    StreamController<String> controller = StreamController<String>();
    Person.withNoParameter();
    Person({required this.id});
 
    Person.withSingInInfo({required this.email ,required this.password });
+
+   Person.withPatientInfo({required this.name ,
+     required this.email ,
+     required this.category ,
+     required this.id});
+
 
    Person.withPar({required this.name,
      required this.phoneNumber ,
