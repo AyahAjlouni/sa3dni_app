@@ -50,7 +50,6 @@ class _PatientHomeState extends State<PatientHome> with TickerProviderStateMixin
           PatientProfile(),
           ChatPage(),
           Settings(),
-
           ]
       ),
        bottomNavigationBar:

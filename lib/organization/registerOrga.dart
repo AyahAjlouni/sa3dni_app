@@ -51,121 +51,124 @@ class _RegisterOrganizationState extends State<RegisterOrganization> {
         backgroundColor: ConstData().basicColor,
       ),
       backgroundColor: ConstData().secColor,
-      body: Form(
-        key: _keyForm,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 0.0),
-          child: Column(
-            children: [
-              TextFormField(
-                decoration: textInputField.copyWith(hintText: 'Full Name'),
-                validator: (value) => value.toString().isNotEmpty ? null : 'Name Field can not be Empty ',
-                keyboardType: TextInputType.text,
-                onChanged: (value) => {
-                  setState((){
-                    name = value;
-                  })
-                },
-              ),
-              const SizedBox(height: 10.0),
-              TextFormField(
-                decoration: textInputField.copyWith(hintText: 'Email'),
-                validator: (value) => value.toString().isNotEmpty ? null : 'Email Field can not be Empty ',
-                keyboardType: TextInputType.emailAddress,
-                onChanged: (value) => {
-                  setState((){
-                    email = value;
-                  })
-                },
-              ),
-              const SizedBox(height: 10.0),
-              TextFormField(
-                decoration: textInputField.copyWith(hintText: 'Phone Number'),
-                validator: (value) => value.toString().length > 9 ? null : 'Phone Number is not correct',
-                keyboardType: TextInputType.phone,
-                onChanged: (value) => {
-                  setState((){
-                    phoneNumber = value;
-                  })
-                },
-              ),
-              const SizedBox(height: 10.0),
-              TextFormField(
-                decoration: textInputField.copyWith(hintText: 'Password'),
-                validator: (value) => validateStructure(value!) ? null :
-                'password should be contains\n1 upper case \n'
-                    '1 lowercase \n'
-                    '1 Numeric Number \n'
-                    '1 Special Character ',
-                keyboardType: TextInputType.text,
-                obscureText: true,
-                onChanged: (value) => {
-                  setState((){
-                    password = value;
-                  })
-                },
-              ),
-              const SizedBox(height: 10.0),
-              TextFormField(
-                decoration: textInputField.copyWith(hintText: 'Address'),
-                validator: (value) => value.toString().isNotEmpty ? null : 'Address can not be empty',
-                keyboardType: TextInputType.streetAddress,
-                onChanged: (value) => {
-                  setState((){
-                    address = value;
-                  })
-                },
-              ),
-              const SizedBox(height: 10.0,),
-              GestureDetector(
-                child: CircleAvatar(
-                  backgroundColor: Colors.grey,
-                  backgroundImage: NetworkImage(image),
-                  radius: 35,
-                  child: Icon(Icons.add_a_photo),
-                ),
-                onTap: () async{
-                  await uploadFile.selectFile();
-                  Fluttertoast.showToast(
-                      msg: "please wait to upload image ...",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
+      body: SingleChildScrollView(
+        child: Form(
+            key: _keyForm,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 0.0),
+              child: Column(
+                children: [
+                  TextFormField(
+                    decoration: textInputField.copyWith(hintText: 'Full Name'),
+                    validator: (value) => value.toString().isNotEmpty ? null : 'Name Field can not be Empty ',
+                    keyboardType: TextInputType.text,
+                    onChanged: (value) => {
+                      setState((){
+                        name = value;
+                      })
+                    },
+                  ),
+                  const SizedBox(height: 10.0),
+                  TextFormField(
+                    decoration: textInputField.copyWith(hintText: 'Email'),
+                    validator: (value) => value.toString().isNotEmpty ? null : 'Email Field can not be Empty ',
+                    keyboardType: TextInputType.emailAddress,
+                    onChanged: (value) => {
+                      setState((){
+                        email = value;
+                      })
+                    },
+                  ),
+                  const SizedBox(height: 10.0),
+                  TextFormField(
+                    decoration: textInputField.copyWith(hintText: 'Phone Number'),
+                    validator: (value) => value.toString().length > 9 ? null : 'Phone Number is not correct',
+                    keyboardType: TextInputType.phone,
+                    onChanged: (value) => {
+                      setState((){
+                        phoneNumber = value;
+                      })
+                    },
+                  ),
+                  const SizedBox(height: 10.0),
+                  TextFormField(
+                    decoration: textInputField.copyWith(hintText: 'Password'),
+                    validator: (value) => validateStructure(value!) ? null :
+                    'password should be contains\n1 upper case \n'
+                        '1 lowercase \n'
+                        '1 Numeric Number \n'
+                        '1 Special Character ',
+                    keyboardType: TextInputType.text,
+                    obscureText: true,
+                    onChanged: (value) => {
+                      setState((){
+                        password = value;
+                      })
+                    },
+                  ),
+                  const SizedBox(height: 10.0),
+                  TextFormField(
+                    decoration: textInputField.copyWith(hintText: 'Address'),
+                    validator: (value) => value.toString().isNotEmpty ? null : 'Address can not be empty',
+                    keyboardType: TextInputType.streetAddress,
+                    onChanged: (value) => {
+                      setState((){
+                        address = value;
+                      })
+                    },
+                  ),
+                  const SizedBox(height: 10.0,),
+                  GestureDetector(
+                    child: CircleAvatar(
                       backgroundColor: Colors.grey,
-                      textColor: Colors.white,
-                      fontSize: 16.0
-                  );
-                  await uploadFile.uploadFile();
-                  setState(()  {
-                    image = uploadFile.getUriFile();
+                      backgroundImage: NetworkImage(image),
+                      radius: 35,
+                      child: Icon(Icons.add_a_photo),
+                    ),
+                    onTap: () async{
+                      await uploadFile.selectFile();
+                      Fluttertoast.showToast(
+                          msg: "please wait to upload image ...",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          backgroundColor: Colors.grey,
+                          textColor: Colors.white,
+                          fontSize: 16.0
+                      );
+                      await uploadFile.uploadFile();
+                      setState(()  {
+                        image = uploadFile.getUriFile();
 
-                  });
-                },
+                      });
+                    },
+                  ),
+                  SizedBox(height: 20,),
+                  RaisedButton(
+                    onPressed: () async{
+                      if(_keyForm.currentState!.validate()){
+                        Person? person = await  AuthenticateService().registerWithEmailAndPassword(email, password);
+                        if(person != null){
+                          User? user = FirebaseAuth.instance.currentUser;
+
+                          Organization organization = Organization(name: name, phoneNumber: phoneNumber,
+                              address: address, category: widget.category,email: email,id:person.id,image: image);
+                          await  DatabaseServicePerson().addUser(user!, "organization");
+
+                          await  _databaseServiceOrga.addOrganization(organization,user.uid,image);
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeWrapper()));
+
+                        }
+
+                      }
+                    },
+                    child: const Text('Register'),
+                  )
+                ],
               ),
-              SizedBox(height: 20,),
-              RaisedButton(
-                  onPressed: () async{
-                    if(_keyForm.currentState!.validate()){
-                      Person? person = await  AuthenticateService().registerWithEmailAndPassword(email, password);
-                         if(person != null){
-                           User? user = FirebaseAuth.instance.currentUser;
+            )
+        ),
+      )
 
-                           Organization organization = Organization(name: name, phoneNumber: phoneNumber,
-                               address: address, category: widget.category,email: email,id:person.id,image: image);
-                           await  DatabaseServicePerson().addUser(user!, "organization");
-
-                           await  _databaseServiceOrga.addOrganization(organization,user.uid,image);
-                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeWrapper()));
-
-                         }
-
-                    }
-                  },
-              child: const Text('Register'),
-              )
-            ],
-          ),
-        )
-      ),
     );
   }
   }
